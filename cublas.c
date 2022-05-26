@@ -5,7 +5,7 @@
 #include <cublas_v2.h>
 
 #define N 128
-
+#define ITERATION_MAX_NUM 10
 
 int main(void)
 {
@@ -40,11 +40,11 @@ int main(void)
 
 
     {
-        while (max_error[0] > 1e-6 && iteration < 1e+6) {
+        while (max_error[0] > 1e-6 && iteration < ITERATION_MAX_NUM) {
 
             iteration++;
 
-            if (iteration % 100 == 0) {
+            if (iteration % 1 == 0) {
 #pragma acc data present(U[0:N*N], U_n[0:N*N])
 
 
@@ -90,7 +90,7 @@ int main(void)
             U = U_n;
             U_n = copy_pointer;
 
-            if (iteration % 100 == 0) {
+            if (iteration % 1 == 0) {
 #pragma acc wait(1)
 
                 printf("%d %lf\n", iteration, max_error[0]);
