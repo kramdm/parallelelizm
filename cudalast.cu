@@ -102,9 +102,6 @@ while(*err > 1e-6 && it < max_iters_with_graphs)
 			five_point_model_calc<<<GRID_SIZE,BLOCK_SIZE,0,stream>>>(U_d_n, U_d, N);
 			five_point_model_calc<<<GRID_SIZE, BLOCK_SIZE,0,stream>>>(U_d, U_d_n, N);
 			
-			//double* swap_ptr = U_d;
-			//U_d = U_d_n;
-			//U_d_n = swap_ptr;
 		}
 		cudaStreamEndCapture(stream, &graph);
 		cudaGraphInstantiate(&instance, graph, NULL, NULL, 0);
